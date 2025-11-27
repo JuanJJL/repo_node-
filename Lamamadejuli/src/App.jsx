@@ -1,13 +1,13 @@
 // src/App.jsx
-import React from "react";
+import React, { useState } from "react";
 import {
   cabecera,
   perfil,
   educacion,
   experiencia,
-  stackTecnologias,
+  stackTecnologias as tecnologiasIniciales,
   proyectos,
-  habilidades
+  habilidades,
 } from "./data/cvData";
 
 import CabeceraCV from "./components/CabeceraCV";
@@ -16,34 +16,31 @@ import Educacion from "./components/Educacion";
 import Experiencia from "./components/Experiencia";
 import StackTecnologias from "./components/StackTecnologias";
 import Proyectos from "./components/Proyectos";
-import Habilidades from "./components/HABILIDADES";
+import ToggleHabilidades from "./components/ToggleHabilidades";
+import FormularioTecnologia from "./components/FormularioTecnologia";
 
 function App() {
+  const [tecnologias, setTecnologias] = useState(tecnologiasIniciales);
+
+  const agregarTecnologia = (nueva) => {
+    setTecnologias((prev) => [...prev, nueva]);
+  };
+
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
-      {/* Cabecera */}
-      <CabeceraCV
-        nombre={cabecera.nombre}
-        profesion={cabecera.profesion}
-      />
-
-      {/* Perfil */}
-      <Perfil texto={perfil.texto} />
-
-      {/* Educación */}
+      <CabeceraCV {...cabecera} />
+      <Perfil {...perfil} />
       <Educacion estudios={educacion} />
-
-      {/* Experiencia */}
       <Experiencia trabajos={experiencia} />
+      <StackTecnologias tecnologias={tecnologias} />
 
-      {/* Stack de Tecnologías */}
-      <StackTecnologias tecnologias={stackTecnologias} />
+      {/* Componente con evento + estado */}
+      <FormularioTecnologia onAgregar={agregarTecnologia} />
 
-      {/* Proyectos (nuevo componente) */}
+      {/* Componente con renderizado condicional */}
+      <ToggleHabilidades habilidades={habilidades} />
+
       <Proyectos proyectos={proyectos} />
-
-      {/* Habilidades (nuevo componente) */}
-      <Habilidades habilidades={habilidades} />
     </div>
   );
 }

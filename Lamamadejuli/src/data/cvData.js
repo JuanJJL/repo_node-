@@ -56,3 +56,5 @@ export const habilidades = [
   { id: 2, nombre: "Trabajo en Equipo", nivel: "Intermedio" },
   { id: 3, nombre: "Resolución de Problemas", nivel: "Avanzado" }
 ];
+
+
